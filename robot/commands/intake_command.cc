@@ -17,7 +17,8 @@ IntakeCommand::IntakeCommand(RobotContainer& container, bool reverse)
 void IntakeCommand::Initialize() {
   if (intake_.Initialized()) {
     IntakeTarget intake_target;
-    // TODO Complete
+
+    intake_.SetTarget(intake_target);
   }
 }
 
