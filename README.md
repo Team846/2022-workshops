@@ -17,3 +17,6 @@ Look through `robot/subsystems/intake.cc` and `robot/commands/intake_command.cc`
 ## deploy to roborio
 
 `bazel run //robot:robot.deploy --platforms=@bazelrio//platforms/roborio`
+
+## Get rid of VSCode errors
+`bazel run @hedron_compile_commands//:refresh_all`
