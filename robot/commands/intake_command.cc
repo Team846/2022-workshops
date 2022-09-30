@@ -1,4 +1,5 @@
 #include "robot/commands/intake_command.h"
+#include "intake_command.h"
 
 IntakeCommand::IntakeCommand(RobotContainer& container, bool reverse)
     : intake_(container.intake_), reverse_(reverse) {
@@ -17,8 +18,9 @@ IntakeCommand::IntakeCommand(RobotContainer& container, bool reverse)
 void IntakeCommand::Initialize() {
   if (intake_.Initialized()) {
     IntakeTarget intake_target;
-
     intake_.SetTarget(intake_target);
+    intake_target.is_extended=true;
+    intake_target.speed=0.5;
   }
 }
 
@@ -28,5 +30,8 @@ void IntakeCommand::End(bool interrupted) {
     intake_.SetTargetZero();
   }
 }
+
+
+
 
 bool IntakeCommand::IsFinished() { return false; }
