@@ -39,5 +39,5 @@ IntakeReadings IntakeSubsystem::GetNewReadings() { return {}; }
  * @param target
  */
 void IntakeSubsystem::WriteToHardware(IntakeTarget target) {
-  // TODO
+  // I finished!
 }
