@@ -14,6 +14,15 @@ TODO: Create ShooterReadings struct and ShooterTarget (refer to intake as
 needed)
 */
 
+struct ShooterReadings {
+  units::revolutions_per_minute_t speed;  // average between left and right
+  bool is_ready;                          // speed is within setpoint tolerance
+};
+
+struct ShooterTarget {
+  units::revolutions_per_minute_t speed;
+};
+
 class ShooterSubsystem
     : public frc846::Subsystem<ShooterReadings, ShooterTarget> {
  public:
