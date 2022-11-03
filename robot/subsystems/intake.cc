@@ -39,5 +39,6 @@ IntakeReadings IntakeSubsystem::GetNewReadings() { return {}; }
  * @param target
  */
 void IntakeSubsystem::WriteToHardware(IntakeTarget target) {
-  // I finished!
+  intake_solenoid_.Set(target.is_extended);
+  esc_helper_.Write({frc846::motor::ControlMode::Percent, target.speed});
 }

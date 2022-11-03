@@ -17,7 +17,11 @@ IntakeCommand::IntakeCommand(RobotContainer& container, bool reverse)
 void IntakeCommand::Initialize() {
   if (intake_.Initialized()) {
     IntakeTarget intake_target;
-    // I finished!
+
+    intake_target.is_extended = true;
+    intake_target.speed =
+        intake_.subsystem()->intake_speed_.value() * (reverse_ ? -1 : 1);
+
     intake_.SetTarget(intake_target);
   }
 }

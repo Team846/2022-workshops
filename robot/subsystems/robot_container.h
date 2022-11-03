@@ -4,6 +4,7 @@
 #include "robot/subsystems/driver.h"
 #include "robot/subsystems/intake.h"
 #include "robot/subsystems/operator.h"
+#include "robot/subsystems/shooter.h"
 
 class RobotContainer : public frc846::Named {
  public:
@@ -22,10 +23,13 @@ class RobotContainer : public frc846::Named {
   OperatorSubsystem operator_;
 
   OptionalIntakeSubsystem intake_{init_intake_.value(), "intake"};
+  OptionalShooterSubsystem shooter_{init_shooter_.value(), "shooter"};
+
   std::vector<frc846::SubsystemBase*> all_subsystems_{
       &driver_,
       &operator_,
       &intake_,
+      &shooter_,
   };
 };
 
