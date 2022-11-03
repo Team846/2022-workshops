@@ -4,12 +4,14 @@ cc_library(
         "intake.cc",
         "driver.cc",
         "operator.cc",
+        "shooter.cc",
     ],
     hdrs = [
         "intake.h",
         "driver.h",
         "operator.h",
         "robot_container.h",
+        "shooter.h",
     ],
     visibility = ["//visibility:public"],
     deps = [

@@ -32,6 +32,11 @@ struct ports {
   struct operator_ {
     static constexpr int kXbox_DSPort = 1;
   };
+
+  struct shooter {
+    static constexpr int kLeft_CANID = 24;
+    static constexpr int kRight_CANID = 25;
+  };
 };
 
 #endif  // ROBOT_PORTS_H_
