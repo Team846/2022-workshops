@@ -39,7 +39,32 @@ bool ShooterSubsystem::IsWithinSpeed(units::revolutions_per_minute_t target,
 }
 
 // TODO: Complete the new readings method
-ShooterReadings ShooterSubsystem::GetNewReadings() {}
+ShooterReadings ShooterSubsystem::GetNewReadings() {
+  auto left_rpm = converter_.NativeToRealVelocity(left_esc_helper_.encoder().GetVelocity());
+  auto right_rpm = converter_.NativeToRealVelocity(right_esc_helper_.encoder().GetVelocity());
+  auto average_rpm = (left_rpm + right_rpm)/2;
+
+  ShooterReadings readings;
+  readings.speed = average_rpm;
+
+  frc846::Named presets_named_{*this, "shooter"};
+
+  // Low goal into hub.
+  frc846::Pref<units::revolutions_per_minute_t> preset_speed_{
+      presets_named_, "speed", 100_rpm};
+
+  readings.is_ready = 
+    units::math::abs(target_speed_ - readings.speed) < preset_speed_.value() && 
+    target_speed_ >= preset_close_.value()
+  
+  return readings
+}
 
 // TODO: Complete the write to hardware method
-void ShooterSubsystem::WriteToHardware(ShooterTarget target) {}
+void ShooterSubsystem::WriteToHardware(ShooterTarget target) {
+  target_speed_ = target.speed;
+  auto native_rpm = converter_.RealToNativeVelocity(target.speed);
+
+  left_esc_helper_.Write({frc846::motor::ControlMode::Velocity, native_rpm});
+  right_esc_helper_.Write({frc846::motor::ControlMode::Velocity, native_rpm});
+}
