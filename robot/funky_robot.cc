@@ -16,6 +16,7 @@
 #include "frc846/wpilib/time.h"
 #include "frc846/xbox.h"
 #include "robot/commands/intake_command.h"
+#include "robot/commands/spinup_command.h"
 
 FunkyRobot::FunkyRobot() : frc846::Named{"funky_robot"} {
   next_loop_time_ = frc846::wpilib::CurrentFPGATime();
@@ -170,6 +171,11 @@ void FunkyRobot::InitTeleopTriggers() {
   frc2::Trigger reverse_intake_trigger{
       [&] { return container_.driver_.readings().a_button; }};
 
+  frc2::Trigger spinup_close_trigger{[&] {
+    return !container_.operator_.readings().left_bumper &&
+           container_.operator_.readings().pov == frc846::XboxPOV::kUp;
+  }};
+
   intake_trigger.WhileActiveOnce(IntakeCommand{container_});
   not_intake_trigger.WhileActiveOnce(frc2::FunctionalCommand{
       [&] {
@@ -184,6 +190,13 @@ void FunkyRobot::InitTeleopTriggers() {
                                          .WithTimeout(1_s));
 
   reverse_intake_trigger.WhileActiveOnce(IntakeCommand{container_, true});
+
+  if (container_.shooter_.Initialized()) {
+    auto shooter = container_.shooter_.subsystem();
+
+    spinup_close_trigger.WhileActiveOnce(
+        SpinupCommand{container_, shooter->preset_close_});
+  }
 }
 
 void FunkyRobot::VerifyHardware() {

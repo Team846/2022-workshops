@@ -1,6 +1,6 @@
 # Software Workshops Week 1 Challenge
 
-https://github.com/Team846/2022-workshops.git 
+https://github.com/Team846/2022-workshops.git
 
 Look through `robot/subsystems/intake.cc` and `robot/commands/intake_command.cc` to try and complete the challenges!
 
