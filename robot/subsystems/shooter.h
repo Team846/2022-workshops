@@ -13,12 +13,21 @@
 TODO: Create ShooterReadings struct and ShooterTarget (refer to intake as
 needed)
 */
+struct ShooterReadings {
+    units::revolutions_per_minute_t speed;
+    bool is_ready;
+} 
+
+struct ShooterTarget {
+    units::revolutions_per_minute_t speed;
+}
 
 class ShooterSubsystem
     : public frc846::Subsystem<ShooterReadings, ShooterTarget> {
  public:
   ShooterSubsystem();
   frc846::Named presets_named_{*this, "presets"};
+
 
   // Low goal into hub.
   frc846::Pref<units::revolutions_per_minute_t> preset_close_{
